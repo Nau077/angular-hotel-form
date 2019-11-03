@@ -1,0 +1,51 @@
+<form [formGroup]="hotelCalcForm" (submit)="onSubmit()">
+  <label for="name">Количество взрослых</label>
+  <input type="number" id="number" formControlName="adultsCount" />
+  <br/><br/>
+  <label for="name">Количество детей старше 12 лет</label>
+  <input type="number" id="number" formControlName="childMiddleAgeCount" />
+  <br/><br/>
+  <label for="name">Количество детей от 5 до 12 лет</label>
+  <input type="number" id="number" formControlName="childSmallAgeCount" />
+  <br/><br/>
+  <select formControlName="selectedPeriod">
+    <option *ngFor="let summary of selectedIntervals" value={{summary}}>
+      {{summary}}
+    </option>
+  </select>
+  <!-- <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+  </mat-form-field> -->
+  <section>
+      <h2>Range selection</h2>
+      <div>
+          <span class="code">rangeMode</span> option enables or disables range mode. Default is <span class="code">false</span>
+      </div>
+      <mat-form-field>
+          <input matInput
+                 placeholder="Выберете корректную дату"
+                 [satDatepicker]="picker2"
+                 formControlName="date">
+          <sat-datepicker #picker2 [rangeMode]="true">
+          </sat-datepicker>
+          <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
+      </mat-form-field>
+  </section>
+  <br/><br/>
+  <button type="submit" (click)="calculate()">Рассчитать</button>
+  <br/><br/>
+  <label for="name">имя</label>
+  <input type="text" id="name" formControlName="name" />
+  <br/><br/>
+
+  <label for="email">email</label>
+  <input type="text" id="email" formControlName="email" />
+  <br/><br/>
+
+  <button type="submit">отправить</button>
+</form>
+<div class="error" *ngIf="isControlInvalid('name')">
+  Имя должно состоять только из русских букв
+ </div>
