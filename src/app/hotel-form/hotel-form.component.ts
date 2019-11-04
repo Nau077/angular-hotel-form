@@ -3,34 +3,47 @@ import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import {Form, FormService, IserverData} from '../shared/form.service';
 import * as moment from 'moment';
 
-const dataServer: IserverData = {
-  low: {
-    date_from: '15.05',
-    date_to: '20.06',
-    econom: 1000,
-    standart: 1500,
-    lux: 2000,
-    child_discount_perc: 50
-},
-high: {
-    date_from: '21.06',
-    date_to: '20.08',
-    econom: 1800,
-    standart: 2800,
-    lux: 4000,
-    child_discount_perc: 25
-},
-low2: {
-    date_from: '21.08',
-    date_to: '15.09',
-    econom: 1200,
-    standart: 1800,
-    lux: 2300,
-    child_discount_perc: 25
-  }
-};
+// tslint:disable
 
-const selectedIntervals = Object.entries(dataServer).map(el => el[0]);
+ class HotelData {
+  low: { date_from: string; date_to: string; econom: number; standart: number; lux: number; child_discount_perc: number; };
+  high: { date_from: string; date_to: string; econom: number; standart: number; lux: number; child_discount_perc: number; };
+  low2: { date_from: string; date_to: string; econom: number; standart: number; lux: number; child_discount_perc: number; };
+
+      constructor() {
+          this.low = {
+            date_from: '15.05',
+            date_to: '20.06',
+            econom: 1000,
+            standart: 1500,
+            lux: 2000,
+            child_discount_perc: 50
+          };
+          this.high = {
+            date_from: '21.06',
+            date_to: '20.08',
+            econom: 1800,
+            standart: 2800,
+            lux: 4000,
+            child_discount_perc: 25
+          };
+          this.low2 = {
+              date_from: '21.08',
+              date_to: '15.09',
+              econom: 1200,
+              standart: 1800,
+              lux: 2300,
+              child_discount_perc: 25
+          }
+      }
+  }
+
+function getDataInsts () {
+  const dataInstance = new HotelData()
+  return dataInstance
+}
+
+const selectedIntervals = ['econom', 'standart', 'lux']
 
 
 @Component({
@@ -89,8 +102,8 @@ ngOnInit() {
       };
 
       // tslint:disable-next-line: align
-    const data = dataServer;
-    this.formService.calculateForm(form, data);
+
+    this.formService.calculateForm(form, getDataInsts ());
   }
 
 

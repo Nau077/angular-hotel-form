@@ -10,29 +10,29 @@ import {tap} from 'rxjs/operators';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 export interface IserverData {
-  readonly low: {
-    readonly date_from: string,
-    readonly date_to: string,
-    readonly econom: number,
-    readonly standart?: number,
-    readonly lux?: number,
-    readonly child_discount_perc?: number
+  low: {
+    date_from: string,
+    date_to: string,
+    econom: number,
+    standart: number,
+    lux?: number,
+    child_discount_perc: number
   };
   readonly high: {
-    readonly date_from: string,
-    readonly date_to: string,
-    readonly econom: number,
-    readonly standart: number,
-    readonly lux: number,
-    readonly child_discount_perc: number
+    date_from: string,
+    date_to: string,
+    econom: number,
+    standart: number,
+    lux: number,
+    child_discount_perc: number
   };
-  readonly low2: {
-    readonly date_from: string,
-    readonly date_to: string,
-    readonly econom: number,
-    readonly standart: number,
-    readonly lux: number,
-    readonly child_discount_perc: number
+  low2: {
+    date_from: string,
+    date_to: string,
+    econom: number,
+    standart: number,
+    lux: number,
+    child_discount_perc: number
   };
 }
 
@@ -53,7 +53,8 @@ export class FormService {
   // сложить в массив range все дни одного интервала
   // сложить в массив rangeLow все дни в массивы интервалов data.low.date_from, data.low.date_to и т.д
   // написать функцию, которая находит количество одинаковых элементов (дней) в этих двух массивах
-  // вычислить количество дней из каждого промежутка, которые оплатил пользователь - посчитать деньги на каждый день из каждого промежутка
+  // вычислить количество дней из каждого промежутка, которые оплатил пользователь
+  // посчитать деньги на каждый день из каждого промежутка
   // сложить сумму
 
 
@@ -97,14 +98,33 @@ export class FormService {
 
 
       const calculateDays = ((dataDays, formInterval, form ) => {
-         const  priceFactoryFn = (dataDays) => {
-           dataDays.map(el => {
-            const countSameDays  =_.intersection(formInterval, el[1].daysInterval)
-           })
 
-         }
-         priceFactoryFn(dataDays)
-        })( getDataDaysInterval, getFormDaysInterval, form)
+        const  priceFactoryFn = (dataDays) => {
+              return dataDays.reduce((acc, el) => {
+                let countSameDays  =_.intersection(formInterval, el[1].daysInterval)
+                if (formInterval.length > 1) countSameDays.pop();
+                const adultCount = (form as any).adultsCount
+                const childCount = (form as any).childMiddleAgeCount
+                const formPeriod = (form as any).period
+                const elPeriodPrice = el[1][formPeriod]
+                const discount_perc = el[1].child_discount_perc / 100
+                let price = countSameDays.length * elPeriodPrice * adultCount
+                let priceForCount = countSameDays.length * elPeriodPrice * childCount
+                if (countSameDays.length == 0) {
+                  price = 0
+                  priceForCount = 0
+                }
+                if (childCount>0) {
+                const childPerc = childCount * countSameDays.length * elPeriodPrice * discount_perc
+                const priceChild = priceForCount - childPerc
+                return acc + price + priceChild
+                }
+                return acc + price
+              }, 0)
+            }
+            priceFactoryFn(dataDays)
+           console.log(priceFactoryFn(dataDays))
+            })( getDataDaysInterval, getFormDaysInterval, form)
 
  }
 
@@ -126,9 +146,7 @@ export class FormService {
    }
 
 calculateForm(form: Form, dataServer:IserverData) {
-    let data = dataServer
-    console.log(data)
-    const normalizeData = FormService.normalizeDataDate(data);
+    const normalizeData = FormService.normalizeDataDate(dataServer);
     FormService.getRangeDays(form.begin, form.end, normalizeData, form)
   }
 }
