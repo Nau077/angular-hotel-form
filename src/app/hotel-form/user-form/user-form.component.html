@@ -1,0 +1,22 @@
+
+<form [formGroup]="userForm" (submit)="onSubmit()">
+<label for="name">имя</label>
+<input type="text" id="name" formControlName="name" required minlength="3"/>
+<br/><br/>
+<label for="email">email</label>
+<input type="text" id="email" formControlName="email" required minlength="4"/>
+<br/><br/>
+<label for="phone">phone</label>
+<input type="phone" id="phone" formControlName="phone"/>
+<br/><br/>
+  <button type="submit">отправить</button>
+<div class="error" *ngIf="isControlInvalid('name')">
+Имя должно состоять только из русских букв
+</div>
+<div class="error" *ngIf="isControlInvalid('email')">
+Правильно заполните email по форме: test@some.com
+</div>
+<div class="error" *ngIf="isControlInvalid('phone')">
+Правильно заполните номер телефона по форме: 89217711845
+  </div>
+</form>

@@ -80,7 +80,7 @@ export class FormService {
     const checkDifference = _.difference(getFormDaysInterval, getBaseInterval())
 
     if (checkDifference.length) {
-      throw "Некорректный интервал между датами, выберете между 15 мая и 15 сентября";
+      throw "Некорректный интервал между датами, выберите между 15 мая и 15 сентября";
     }
 
 

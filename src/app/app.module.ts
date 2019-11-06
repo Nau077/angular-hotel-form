@@ -15,12 +15,14 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-mo
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormService } from './shared/form.service';
 import { ServerService } from './shared/server-interact.service';
+import { UserFormComponent } from './hotel-form/user-form/user-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HotelFormComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,

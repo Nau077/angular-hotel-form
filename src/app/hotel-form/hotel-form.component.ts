@@ -57,6 +57,11 @@ export class HotelFormComponent implements OnInit {
   selectedIntervals = selectedIntervals;
   titlePrice: string | number = '';
   isCalculated: boolean = false;
+  adultCount = '';
+  middleChildCount = '';
+  littleChildCount = '';
+  period = '';
+
   constructor(private fb: FormBuilder, private formService: FormService) {
 
   }
@@ -68,24 +73,26 @@ ngOnInit() {
   // Инициализация формы
  initForm() {
   this.hotelCalcForm = this.fb.group({
-    name: ['', [
+    date: [{begin: new Date(2019, 4, 15), end: new Date(2019, 8, 15)}
+    ],
+    adultsCount: [0, [
       Validators.required,
-      Validators.pattern(/[А-я]/)
-     ]
-    ],
-    email: ['', [
-      Validators.required, Validators.email
-     ]
-    ],
-    date: [{begin: new Date(2019, 4, 15), end: new Date(2019, 8, 15)}],
-    adultsCount: 0,
-    childMiddleAgeCount: 0,
-    childSmallAgeCount: 0,
-    selectedPeriod: [selectedIntervals[0]]
+      Validators.pattern(/^[1-9]\d*$/)
+    ]],
+    childMiddleAgeCount:  [0, [
+      Validators.required,
+      Validators.pattern(/^[1-9]\d*$/)
+    ]],
+    childSmallAgeCount:  [0, [
+      Validators.required,
+      Validators.pattern(/^[1-9]\d*$/)
+    ]],
+    selectedPeriod: [selectedIntervals[0],
+    [
+      Validators.required
+    ]],
   });
  }
-
-
 
  isControlInvalid(controlName: string): boolean {
   const control = this.hotelCalcForm.controls[controlName];
@@ -93,8 +100,18 @@ ngOnInit() {
   return result;
   }
 
-
   calculate() {
+
+    const controls = this.hotelCalcForm.controls;
+    // Проверяем форму на валидность
+    if (this.hotelCalcForm.invalid) {
+       // Если форма не валидна, то помечаем все контролы как touched
+      Object.keys(controls)
+       .forEach(controlName => controls[controlName].markAsTouched());
+       // Прерываем выполнение метода
+      return;
+      }
+
     const timeBegin = moment(this.hotelCalcForm.value.date.begin).format('MM-DD-YYYY');
     const timeEnd = moment(this.hotelCalcForm.value.date.end).format('MM-DD-YYYY');
 
@@ -111,23 +128,17 @@ ngOnInit() {
 
     const price = this.formService.calculateForm(form, getDataInsts ());
     this.titlePrice = price
+
+    this.adultCount = this.hotelCalcForm.value.adultsCount;
+    this.middleChildCount = this.hotelCalcForm.value.childMiddleAgeCount;
+    this.littleChildCount = this.hotelCalcForm.value.childSmallAgeCount;
+    this.period = this.hotelCalcForm.value.selectedPeriod;
+
     if ((typeof this.titlePrice)=='number') {
       this.isCalculated = true
+    } else {
+      this.isCalculated = false
     }
   }
-
-
-  onSubmit() {
-    const controls = this.hotelCalcForm.controls;
-    // Проверяем форму на валидность
-    if (this.hotelCalcForm.invalid) {
-       // Если форма не валидна, то помечаем все контролы как touched
-      Object.keys(controls)
-       .forEach(controlName => controls[controlName].markAsTouched());
-       // Прерываем выполнение метода
-      return;
-      }
-     // Todo: Обработка данных формы
-    }
 }
 

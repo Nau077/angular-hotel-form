@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.container form{
+  margin-top: 15rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 30rem;
+  width: 100%;
+  justify-content: center;
+}
+input.ng-touched.ng-invalid{
+  border-color: red;
+ }
