@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import {Form, FormService, IserverData} from '../shared/form.service';
 import {ServerService} from '../shared/server-interact.service';
 import * as moment from 'moment';
@@ -55,7 +55,8 @@ const selectedIntervals = ['econom', 'standart', 'lux']
 export class HotelFormComponent implements OnInit {
   hotelCalcForm: FormGroup;
   selectedIntervals = selectedIntervals;
-
+  titlePrice: string | number = '';
+  isCalculated: boolean = false;
   constructor(private fb: FormBuilder, private formService: FormService) {
 
   }
@@ -76,19 +77,23 @@ ngOnInit() {
       Validators.required, Validators.email
      ]
     ],
-    date: [{begin: new Date(2019, 5, 5), end: new Date(2018, 9, 25)}],
-    adultsCount: Number,
-    childMiddleAgeCount: Number,
-    childSmallAgeCount: Number,
-    selectedPeriod: String
+    date: [{begin: new Date(2019, 4, 15), end: new Date(2019, 8, 15)}],
+    adultsCount: 0,
+    childMiddleAgeCount: 0,
+    childSmallAgeCount: 0,
+    selectedPeriod: [selectedIntervals[0]]
   });
  }
+
+
 
  isControlInvalid(controlName: string): boolean {
   const control = this.hotelCalcForm.controls[controlName];
   const result = control.invalid && control.touched;
   return result;
   }
+
+
   calculate() {
     const timeBegin = moment(this.hotelCalcForm.value.date.begin).format('MM-DD-YYYY');
     const timeEnd = moment(this.hotelCalcForm.value.date.end).format('MM-DD-YYYY');
@@ -105,7 +110,10 @@ ngOnInit() {
       // tslint:disable-next-line: align
 
     const price = this.formService.calculateForm(form, getDataInsts ());
-    console.log(price)
+    this.titlePrice = price
+    if ((typeof this.titlePrice)=='number') {
+      this.isCalculated = true
+    }
   }
 
 

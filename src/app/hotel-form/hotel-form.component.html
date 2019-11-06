@@ -36,6 +36,10 @@
   <br/><br/>
   <button type="submit" (click)="calculate()">Рассчитать</button>
   <br/><br/>
+    <p *ngIf="!isCalculated">{{titlePrice}}</p>
+    <p *ngIf="isCalculated">Итоговая сумма: {{titlePrice}} рублей</p>
+  <br/><br/>
+  <div *ngIf="isCalculated">
   <label for="name">имя</label>
   <input type="text" id="name" formControlName="name" />
   <br/><br/>
@@ -43,9 +47,10 @@
   <label for="email">email</label>
   <input type="text" id="email" formControlName="email" />
   <br/><br/>
-
-  <button type="submit">отправить</button>
-</form>
+    <button type="submit">отправить</button>
 <div class="error" *ngIf="isControlInvalid('name')">
   Имя должно состоять только из русских букв
  </div>
+  </div>
+</form>
+

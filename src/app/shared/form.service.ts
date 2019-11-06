@@ -80,7 +80,7 @@ export class FormService {
     const checkDifference = _.difference(getFormDaysInterval, getBaseInterval())
 
     if (checkDifference.length) {
-      throw "error interval";
+      throw "Некорректный интервал между датами, выберете между 15 мая и 15 сентября";
     }
 
 
@@ -146,7 +146,7 @@ calculateForm(form: Form, dataServer:IserverData) {
     try {
       return FormService.getPrice(form.begin, form.end, normalizeData, form)
     } catch (e) {
-     return 'Ошибка в выборе интервала дат'
+     return e
     }
   }
 }
