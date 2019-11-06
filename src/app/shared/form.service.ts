@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import * as MomentRange from 'moment-range';
 import * as _ from 'underscore';
 
-
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -58,7 +57,7 @@ export class FormService {
   // сложить сумму
 
 
-  static getRangeDays(begin:string, end: string, data:object, form:object){
+  static getPrice(begin:string, end: string, data:object, form:object){
     const Moment = MomentRange.extendMoment(moment);
 
     const getBaseInterval = () => {
@@ -81,8 +80,7 @@ export class FormService {
     const checkDifference = _.difference(getFormDaysInterval, getBaseInterval())
 
     if (checkDifference.length) {
-      console.error('Неверно выбран интервал дат!')
-      return
+      throw "error interval";
     }
 
 
@@ -98,8 +96,7 @@ export class FormService {
 
 
       const calculateDays = ((dataDays, formInterval, form ) => {
-
-        const  priceFactoryFn = (dataDays) => {
+        const  priceFactoryFn = ((dataDays) => {
               return dataDays.reduce((acc, el) => {
                 let countSameDays  =_.intersection(formInterval, el[1].daysInterval)
                 if (formInterval.length > 1) countSameDays.pop();
@@ -121,11 +118,10 @@ export class FormService {
                 }
                 return acc + price
               }, 0)
-            }
-            priceFactoryFn(dataDays)
-           console.log(priceFactoryFn(dataDays))
+            })(dataDays)
+            return priceFactoryFn
             })( getDataDaysInterval, getFormDaysInterval, form)
-
+        return calculateDays
  }
 
  static normalizeDataDate(data: object) {
@@ -147,6 +143,10 @@ export class FormService {
 
 calculateForm(form: Form, dataServer:IserverData) {
     const normalizeData = FormService.normalizeDataDate(dataServer);
-    FormService.getRangeDays(form.begin, form.end, normalizeData, form)
+    try {
+      return FormService.getPrice(form.begin, form.end, normalizeData, form)
+    } catch (e) {
+     return 'Ошибка в выборе интервала дат'
+    }
   }
 }

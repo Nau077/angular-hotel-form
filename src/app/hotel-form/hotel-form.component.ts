@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import {Form, FormService, IserverData} from '../shared/form.service';
+import {ServerService} from '../shared/server-interact.service';
 import * as moment from 'moment';
 
 // tslint:disable
@@ -103,7 +104,8 @@ ngOnInit() {
 
       // tslint:disable-next-line: align
 
-    this.formService.calculateForm(form, getDataInsts ());
+    const price = this.formService.calculateForm(form, getDataInsts ());
+    console.log(price)
   }
 
 

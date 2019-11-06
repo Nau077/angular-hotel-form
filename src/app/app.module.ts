@@ -14,6 +14,7 @@ import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter'
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormService } from './shared/form.service';
+import { ServerService } from './shared/server-interact.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { FormService } from './shared/form.service';
   providers: [
   {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
   {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-  FormService
+  FormService, ServerService
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
