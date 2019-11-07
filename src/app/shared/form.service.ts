@@ -149,4 +149,10 @@ calculateForm(form: Form, dataServer:IserverData) {
      return e
     }
   }
+checkSmallAgeCount(form:Form) {
+		const child = form.childSmallAgeCount
+		const adult = form.adultsCount
+		if (child/adult > 3) return false
+		return true	
+	}
 }

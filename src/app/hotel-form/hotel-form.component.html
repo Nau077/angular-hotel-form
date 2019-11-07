@@ -34,7 +34,7 @@
         <br/><br/>
         <button type="submit">Рассчитать</button>
         <br/><br/>
-          <p *ngIf="!isCalculated">{{titlePrice}}</p>
+          <p *ngIf="!isCalculated && isChildChecked">{{titlePrice}}</p>
           <p *ngIf="isCalculated">Итоговая сумма: {{titlePrice}} рублей</p>
         <br/><br/>
         <div class="error" *ngIf="isControlInvalid('adultsCount')">
@@ -45,6 +45,9 @@
             </div>
             <div class="error" *ngIf="isControlInvalid('childSmallAgeCount')">
             Заполните положительное целое число
+              </div>
+		<div class="error" *ngIf="!isChildChecked">
+            На одного взрослого не более трёх детей до 5 лет!
               </div>
       </form>
       <app-user-form

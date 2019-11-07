@@ -60,6 +60,7 @@ export class HotelFormComponent implements OnInit {
   adultCount = '';
   middleChildCount = '';
   littleChildCount = '';
+  isChildChecked = true;
   period = '';
 
   constructor(private fb: FormBuilder, private formService: FormService) {
@@ -81,11 +82,11 @@ ngOnInit() {
     ]],
     childMiddleAgeCount:  [0, [
       Validators.required,
-      Validators.pattern(/^[1-9]\d*$/)
+      Validators.pattern(/^[0-9]\d*$/)
     ]],
     childSmallAgeCount:  [0, [
       Validators.required,
-      Validators.pattern(/^[1-9]\d*$/)
+      Validators.pattern(/^[0-9]\d*$/)
     ]],
     selectedPeriod: [selectedIntervals[0],
     [
@@ -101,7 +102,7 @@ ngOnInit() {
   }
 
   calculate() {
-
+	this.isChildChecked = true;
     const controls = this.hotelCalcForm.controls;
     // Проверяем форму на валидность
     if (this.hotelCalcForm.invalid) {
@@ -125,7 +126,12 @@ ngOnInit() {
       };
 
       // tslint:disable-next-line: align
-
+	const checkChild = this.formService.checkSmallAgeCount(form)
+	if (!checkChild) {
+		this.isChildChecked = false
+		this.isCalculated = false
+		return
+	}
     const price = this.formService.calculateForm(form, getDataInsts ());
     this.titlePrice = price
 
