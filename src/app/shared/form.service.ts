@@ -3,32 +3,20 @@
 	import * as MomentRange from 'moment-range';
 	import * as _ from 'underscore';
 	const Moment = MomentRange.extendMoment(moment);
+	
+	type dataItem = {
+		date_from: string,
+		date_to: string,
+		econom: number,
+		standart: number,
+		lux: number,
+		child_discount_perc: number
+	}
 
 	export interface IserverData {
-	low: {
-		date_from: string,
-		date_to: string,
-		econom: number,
-		standart: number,
-		lux?: number,
-		child_discount_perc: number
-	};
-	readonly high: {
-		date_from: string,
-		date_to: string,
-		econom: number,
-		standart: number,
-		lux: number,
-		child_discount_perc: number
-	};
-	low2: {
-		date_from: string,
-		date_to: string,
-		econom: number,
-		standart: number,
-		lux: number,
-		child_discount_perc: number
-		};
+		low: dataItem,
+		high: dataItem,
+		low2: dataItem
 	}
 
 	export interface Form {
@@ -70,7 +58,7 @@
 		});
 	}
 	
-	function calculatePrice (dataDays, formInterval, form) {
+	function calculatePrice (dataDays:Array<any>, formInterval:Array<any>, form:object) {
 		const  priceFactoryFn = ((dataDays) => {
 			return dataDays.reduce((acc, el) => {
 			let countSameDays  =_.intersection(formInterval, el[1].daysInterval)
@@ -87,9 +75,9 @@
 				priceForCount = 0
 			}
 			if (childCount>0) {
-			const childPerc = childCount * countSameDays.length * elPeriodPrice * discount_perc
-			const priceChild = priceForCount - childPerc
-			return acc + price + priceChild
+				const childPerc = childCount * countSameDays.length * elPeriodPrice * discount_perc
+				const priceChild = priceForCount - childPerc
+				return acc + price + priceChild
 			}
 			return acc + price
 			}, 0)
@@ -130,7 +118,7 @@
 		return { ...acc, [k]: v };
 		}, {});
 	}
-	
+
 	calculateForm(form: Form, dataServer:IserverData) {
 		const normalizeData = FormService.normalizeDataDate(dataServer);
 		try {
