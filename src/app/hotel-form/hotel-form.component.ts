@@ -114,12 +114,12 @@ export class HotelFormComponent implements OnInit {
 	const timeEnd = moment(this.hotelCalcForm.value.date.end).format('MM-DD-YYYY');
 
 	const form: Form = {
-	period: this.hotelCalcForm.value.selectedPeriod,
-	adultsCount: this.hotelCalcForm.value.adultsCount,
-	childMiddleAgeCount: this.hotelCalcForm.value.childMiddleAgeCount,
-	childSmallAgeCount:  this.hotelCalcForm.value.childSmallAgeCount,
-	begin: timeBegin,
-	end: timeEnd
+		period: this.hotelCalcForm.value.selectedPeriod,
+		adultsCount: this.hotelCalcForm.value.adultsCount,
+		childMiddleAgeCount: this.hotelCalcForm.value.childMiddleAgeCount,
+		childSmallAgeCount:  this.hotelCalcForm.value.childSmallAgeCount,
+		begin: timeBegin,
+		end: timeEnd
 	};
 
 	// tslint:disable-next-line: align
@@ -127,7 +127,7 @@ export class HotelFormComponent implements OnInit {
 		if (!checkChild) {
 		this.isChildChecked = false
 		this.isCalculated = false
-	return
+		return
 	}
 	const price = this.formService.calculateForm(form, getDataInsts ());
 	this.titlePrice = price
