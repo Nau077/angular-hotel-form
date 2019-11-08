@@ -1,26 +1,28 @@
-
-    <form [formGroup]="hotelCalcForm" (submit)="calculate()">
-        <label for="name">Количество взрослых</label>
-        <input type="number" id="number" formControlName="adultsCount" required />
-        <br/><br/>
-        <label for="name">Количество детей старше 12 лет</label>
-        <input type="number" id="number" formControlName="childMiddleAgeCount" required/>
-        <br/><br/>
-        <label for="name">Количество детей от 5 до 12 лет</label>
-        <input type="number" id="number" formControlName="childSmallAgeCount" required/>
-        <br/><br/>
-        <select formControlName="selectedPeriod">
+<div class="container-fluid">
+<h1>Angular hotel form</h1>
+<form [formGroup]="hotelCalcForm" (submit)="calculate()">
+		<div class="form-group">
+        <label for="InputNumberAdult">Количество взрослых</label>
+        <input type="number" class="form-control" id="InputNumberAdult" formControlName="adultsCount" required />
+        </div>
+		<div class="form-group">
+        <label for="InputNumberMiddle">Количество детей старше 12 лет</label>
+        <input type="number" class="form-control" id="InputNumberMiddle" formControlName="childMiddleAgeCount" required/>
+		</div>
+		<div class="form-group">
+        <label for="InputNumberLittle">Количество детей от 5 до 12 лет</label>
+        <input type="number" class="form-control" id="InputNumberLittle" formControlName="childSmallAgeCount" required/>
+		</div>
+		<div class="form-group">
+		<label for="FormControlSelect">Выберите даты отдыха:</label>
+        <select class="form-control" id="FormControlSelect" formControlName="selectedPeriod">
           <option *ngFor="let summary of selectedIntervals" value={{summary}}>
             {{summary}}
           </option>
         </select>
-        <!-- <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-        </mat-form-field> -->
+		</div>
         <section>
-            <h2>Выберите даты отдыха:</h2>
+            <p>Выберите даты отдыха:</p>
             <mat-form-field>
                 <input matInput
                        placeholder="Выберете корректную дату"
@@ -32,23 +34,17 @@
             </mat-form-field>
         </section>
         <br/><br/>
-        <button type="submit">Рассчитать</button>
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
         <br/><br/>
           <p *ngIf="!isCalculated && isChildChecked">{{titlePrice}}</p>
           <p *ngIf="isCalculated">Итоговая сумма: {{titlePrice}} рублей</p>
         <br/><br/>
-        <div class="error" *ngIf="isControlInvalid('adultsCount')">
-            Заполните положительное целое число
-            </div>
-            <div class="error" *ngIf="isControlInvalid('childMiddleAgeCount')">
-                Заполните положительное целое число
-            </div>
-            <div class="error" *ngIf="isControlInvalid('childSmallAgeCount')">
-            Заполните положительное целое число
-              </div>
-		<div class="error" *ngIf="!isChildChecked">
-            На одного взрослого не более трёх детей до 5 лет!
-              </div>
+        <div class="error" >
+            <p *ngIf="isControlInvalid('adultsCount')"> Заполните положительное целое число <p>
+        	<p *ngIf="isControlInvalid('childMiddleAgeCount')">Заполните положительное целое число<p>
+            <p *ngIf="isControlInvalid('childSmallAgeCount')">Заполните положительное целое число<p> 
+            <p *ngIf="!isChildChecked">На одного взрослого не более трёх детей до 5 лет!<p> 
+        </div>
       </form>
       <app-user-form
       *ngIf="isCalculated"
@@ -57,6 +53,7 @@
       [littleChildCount]="littleChildCount"
       [period]=" period"
       ></app-user-form>
+	</div>
 
 
 

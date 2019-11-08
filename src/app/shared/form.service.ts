@@ -92,7 +92,7 @@ export class FormService {
       const days = momentArray.map(el => moment((el as any)._d).format('MM-DD-YYYY'))
       el[1].daysInterval = days
       return el;
-        }, {});
+        });
 
 
       const calculateDays = ((dataDays, formInterval, form ) => {

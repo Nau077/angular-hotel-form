@@ -1,15 +1,18 @@
 
 <form [formGroup]="userForm" (submit)="onSubmit()">
+<div class="form-group">
 <label for="name">имя</label>
-<input type="text" id="name" formControlName="name" required minlength="3"/>
-<br/><br/>
+<input class="form-control" type="text" id="name" formControlName="name" required minlength="3"/>
+</div>
+<div class="form-group">
 <label for="email">email</label>
-<input type="text" id="email" formControlName="email" required minlength="4"/>
-<br/><br/>
+<input class="form-control" type="text" id="email" formControlName="email" required minlength="4"/>
+</div>
+<div class="form-group">
 <label for="phone">phone</label>
-<input type="phone" id="phone" formControlName="phone"/>
-<br/><br/>
-  <button type="submit">отправить</button>
+<input class="form-control" type="phone" id="phone" formControlName="phone"/>
+</div>
+  <button type="submit" class="btn btn-primary">отправить</button>
 <div class="error" *ngIf="isControlInvalid('name')">
 Имя должно состоять только из русских букв
 </div>
