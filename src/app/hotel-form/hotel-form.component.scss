@@ -1,11 +1,17 @@
-.container form{
-  margin-top: 15rem;
-  display: flex;
-  flex-direction: column;
-  max-width: 30rem;
-  width: 100%;
-  justify-content: center;
+.container form {
+    margin-top: 15rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 30rem;
+    width: 100%;
+    justify-content: center;
 }
-input.ng-touched.ng-invalid{
-  border-color: red;
- }
+
+input.ng-touched.ng-invalid {
+    border-color: red;
+}
+
+.date-picker-border {
+    border: 1px solid transparent;
+    padding: 0.3rem;
+}

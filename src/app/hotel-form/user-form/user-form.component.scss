@@ -1,7 +1,11 @@
-input.ng-touched.ng-invalid{
-  border-color: red;
- }
+input.ng-touched.ng-invalid {
+    border-color: red;
+}
 
- .error:nth-child(1) {
-	 color: red;
- }
+.error:nth-child(1) {
+    color: red;
+}
+
+.date-picker-border {
+    border: 2px solid transparent;
+}

@@ -1,15 +1,15 @@
 
 <form [formGroup]="userForm" (submit)="onSubmit()">
 <div class="form-group">
-<label for="name">имя</label>
+<label for="name">Имя</label>
 <input class="form-control" type="text" id="name" formControlName="name" required minlength="3"/>
 </div>
 <div class="form-group">
-<label for="email">email</label>
+<label for="email">Email</label>
 <input class="form-control" type="text" id="email" formControlName="email" required minlength="4"/>
 </div>
 <div class="form-group">
-<label for="phone">phone</label>
+<label for="phone">Phone</label>
 <input class="form-control" type="phone" id="phone" formControlName="phone"/>
 </div>
   <button type="submit" class="btn btn-primary">отправить</button>
