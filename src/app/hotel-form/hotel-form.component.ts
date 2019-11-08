@@ -26,23 +26,23 @@ class HotelData {
 				lux: 4000,
 				child_discount_perc: 25
 			};
-		this.low2 = {
+		 this.low2 = {
 				date_from: '21.08',
 				date_to: '15.09',
 				econom: 1200,
 				standart: 1800,
 				lux: 2300,
 				child_discount_perc: 25
-			}
+			};
 		}
 	}
 
-function getDataInsts () {
-	const dataInstance = new HotelData()
-	return dataInstance
+function getDataInsts() {
+	const dataInstance = new HotelData();
+	return dataInstance;
 }
 
-const selectedIntervals = ['econom', 'standart', 'lux']
+const selectedIntervals = ['econom', 'standart', 'lux'];
 
 
 @Component({
@@ -54,7 +54,7 @@ export class HotelFormComponent implements OnInit {
 	hotelCalcForm: FormGroup;
 	selectedIntervals = selectedIntervals;
 	titlePrice: string | number = '';
-	isCalculated: boolean = false;
+	isCalculated = false;
 	adultCount = '';
 	middleChildCount = '';
 	littleChildCount = '';
@@ -110,10 +110,10 @@ export class HotelFormComponent implements OnInit {
 		return;
 	}
 
-	const timeBegin = moment(this.hotelCalcForm.value.date.begin).format('MM-DD-YYYY');
-	const timeEnd = moment(this.hotelCalcForm.value.date.end).format('MM-DD-YYYY');
+	 const timeBegin = moment(this.hotelCalcForm.value.date.begin).format('MM-DD-YYYY');
+	 const timeEnd = moment(this.hotelCalcForm.value.date.end).format('MM-DD-YYYY');
 
-	const form: Form = {
+	 const form: Form = {
 		period: this.hotelCalcForm.value.selectedPeriod,
 		adultsCount: this.hotelCalcForm.value.adultsCount,
 		childMiddleAgeCount: this.hotelCalcForm.value.childMiddleAgeCount,
@@ -123,24 +123,24 @@ export class HotelFormComponent implements OnInit {
 	};
 
 	// tslint:disable-next-line: align
-	const checkChild = this.formService.checkSmallAgeCount(form)
+	const checkChild = this.formService.checkSmallAgeCount(form);
 		if (!checkChild) {
-		this.isChildChecked = false
-		this.isCalculated = false
-		return
+		this.isChildChecked = false;
+		this.isCalculated = false;
+		return;
 	}
-	const price = this.formService.calculateForm(form, getDataInsts ());
-	this.titlePrice = price
+	 const price = this.formService.calculateForm(form, getDataInsts ());
+	 this.titlePrice = price;
 
-	this.adultCount = this.hotelCalcForm.value.adultsCount;
-	this.middleChildCount = this.hotelCalcForm.value.childMiddleAgeCount;
-	this.littleChildCount = this.hotelCalcForm.value.childSmallAgeCount;
-	this.period = this.hotelCalcForm.value.selectedPeriod;
+	 this.adultCount = this.hotelCalcForm.value.adultsCount;
+	 this.middleChildCount = this.hotelCalcForm.value.childMiddleAgeCount;
+	 this.littleChildCount = this.hotelCalcForm.value.childSmallAgeCount;
+	 this.period = this.hotelCalcForm.value.selectedPeriod;
 
-	if ((typeof this.titlePrice)=='number') {
-		this.isCalculated = true
+	 if ((typeof this.titlePrice) == 'number') {
+		this.isCalculated = true;
 	} else {
-	this.isCalculated = false
+	this.isCalculated = false;
 		}
 	}
 }
