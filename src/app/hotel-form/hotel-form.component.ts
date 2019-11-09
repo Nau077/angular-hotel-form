@@ -1,54 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import {Form, FormService} from '../shared/form.service';
+import { HotelData,  selectedIntervals } from '../shared/server-interact.service';
 import * as moment from 'moment';
 
-
-class HotelData {
-	low: { date_from: string; date_to: string; econom: number; standart: number; lux: number; child_discount_perc: number; };
-	high: { date_from: string; date_to: string; econom: number; standart: number; lux: number; child_discount_perc: number; };
-	low2: { date_from: string; date_to: string; econom: number; standart: number; lux: number; child_discount_perc: number; };
-
-	constructor() {
-			this.low = {
-				date_from: '15.05',
-				date_to: '20.06',
-				econom: 1000,
-				standart: 1500,
-				lux: 2000,
-				child_discount_perc: 50
-			};
-			this.high = {
-				date_from: '21.06',
-				date_to: '20.08',
-				econom: 1800,
-				standart: 2800,
-				lux: 4000,
-				child_discount_perc: 25
-			};
-		 this.low2 = {
-				date_from: '21.08',
-				date_to: '15.09',
-				econom: 1200,
-				standart: 1800,
-				lux: 2300,
-				child_discount_perc: 25
-			};
-		}
-	}
-
-function getDataInsts() {
-	const dataInstance = new HotelData();
-	return dataInstance;
-}
-
-const selectedIntervals = ['econom', 'standart', 'lux'];
-
-
 @Component({
-selector: 'app-hotel-form',
-templateUrl: './hotel-form.component.html',
-styleUrls: ['./hotel-form.component.scss']
+	selector: 'app-hotel-form',
+	templateUrl: './hotel-form.component.html',
+	styleUrls: ['./hotel-form.component.scss']
 })
 export class HotelFormComponent implements OnInit {
 	hotelCalcForm: FormGroup;
@@ -129,7 +88,8 @@ export class HotelFormComponent implements OnInit {
 		this.isCalculated = false;
 		return;
 	}
-	 const price = this.formService.calculateForm(form, getDataInsts ());
+	 // tslint:disable-next-line: new-parens
+	 const price = this.formService.calculateForm(form, new HotelData);
 	 this.titlePrice = price;
 
 	 this.adultCount = this.hotelCalcForm.value.adultsCount;
