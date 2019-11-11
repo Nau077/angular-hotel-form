@@ -16,6 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormService } from './shared/form.service';
 import { ServerService } from './shared/server-interact.service';
 import { UserFormComponent } from './hotel-form/user-form/user-form.component';
+import { CardsComponent } from './cards/cards.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UserFormComponent } from './hotel-form/user-form/user-form.component';
 		AppComponent,
 		HotelFormComponent,
 		UserFormComponent,
+		CardsComponent,
 	],
 	imports: [
 		BrowserModule,

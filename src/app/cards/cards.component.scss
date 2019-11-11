@@ -1,0 +1,27 @@
+h4 {
+    font-size: 1rem !important;
+}
+
+.h5,
+h5 {
+    font-size: 1.0rem;
+}
+
+.title1 {
+    margin-bottom: 50px;
+}
+
+.card-spec-list {
+    text-align: left !important;
+    p {
+        margin: 0 !important;
+    }
+    p+p {
+        margin-top: 10px !important;
+    }
+    margin-bottom: 10px !important;
+}
+
+.card-container {
+    padding: 0 !important;
+}

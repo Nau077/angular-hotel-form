@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <h1>Angular hotel form</h1>
+<div class="container-fluid col-8">
+<h2 class="text-center mt-2 mb-4">Заполните форму</h2>
   <form [formGroup]="hotelCalcForm" (submit)="calculate()">
     <div class="form-group">
       <label for="InputNumberAdult">Количество взрослых</label>
@@ -32,7 +32,7 @@
       </mat-form-field>
     </section>
     <button type="submit" class="btn btn-primary">Рассчитать</button>
-    <br /><br />
+    <br/><br/>
     <p class="error" *ngIf="!isCalculated && isChildChecked">{{titlePrice}}</p>
     <p *ngIf="isCalculated">Итоговая сумма: {{titlePrice}} рублей</p>
     <div class="error">
