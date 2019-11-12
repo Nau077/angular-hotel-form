@@ -11,12 +11,13 @@
 	  <p>Дети до 5 лет бесплатно</p>
 	  <p>Детям до 12 лет скидка (см.подробнее)</p>
 	  <p>На одного взрослого не более трёх детей до 5 лет</p>
+	  <p>Вы можете сделать отдых смежным на несколько интервалов дат</p>
 	  </div>
       <footer class="blockquote-footer">Внимательно выбирайте <cite title="Source Title">тариф</cite></footer>
     </blockquote>
   </div>
 </div>
-<h2 class="text-center mt-4 mb-4">Тарифы</h2>
+<h2 class="text-center mt-4 mb-4">Сезонные цены:</h2>
 <div class="row col-12 justify-content-between mt-4 mb-3 ml-0 mr-0 card-container">
   <div *ngFor="let card of data; let i=index">
     <div class="card">
@@ -27,8 +28,8 @@
 		<p class="card-text">Эконом: {{card.econom}} рублей</p>
 		<p class="card-text">Стандартный: {{card.standart}} рублей</p>
 		<p class="card-text">Люкс: {{card.lux}} рублей</p>
-		<h4 class="card-title" *ngIf="card.isReading">Скидка на ребёнка до 12 лет:</h4>
-		<p class="card-text" *ngIf="card.isReading">{{card.child_discount_perc}}%</p>
+		<h4 class="card-title" *ngIf="card.isReading" [@slideInOut]>Скидка на ребёнка до 12 лет:</h4>
+		<p class="card-text" *ngIf="card.isReading" [@slideInOut]>{{card.child_discount_perc}}%</p>
         <a href="#" class="btn btn-primary" (click)=" seeDiscard(i)">Подробнее</a>
       </div>
     </div>

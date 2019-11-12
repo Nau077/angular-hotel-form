@@ -1,19 +1,19 @@
-<form [formGroup]="userForm" (submit)="onSubmit()">
+<form class="mb-5 user-form"[formGroup]="userForm" (submit)="onSubmit()">
   <div class="form-group">
-    <label for="name">Имя</label>
+    <label for="name">Имя:</label>
     <input class="form-control" type="text" id="name" formControlName="name" required minlength="3" />
   </div>
   <div class="form-group">
-    <label for="email">Email</label>
+    <label for="email">Email:</label>
     <input class="form-control" type="text" id="email" formControlName="email" required minlength="4" />
   </div>
   <div class="form-group">
-    <label for="phone">Phone</label>
+    <label for="phone">Телефон:</label>
     <input class="form-control" type="phone" id="phone" formControlName="phone" />
   </div>
   <button type="submit" class="btn btn-primary">отправить</button>
   <div class="error" *ngIf="isControlInvalid('name')">
-    Имя должно состоять только из русских букв
+    Имя должно состоять только из кириллицы или латинских букв
   </div>
   <div class="error" *ngIf="isControlInvalid('email')">
     Правильно заполните email по форме: test@some.com

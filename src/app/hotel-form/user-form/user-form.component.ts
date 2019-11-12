@@ -12,6 +12,8 @@ export class UserFormComponent implements OnInit {
 	@Input() middleChildCount: number;
 	@Input() littleChildCount: number;
 	@Input() period: string;
+	@Input() titlePrice: number;
+	@Input() date: string;
 
 	userForm: FormGroup;
 	constructor(private fb: FormBuilder, private formService: ServerService) { }
@@ -25,11 +27,11 @@ export class UserFormComponent implements OnInit {
 		this.userForm = this.fb.group({
 		name: ['', [
 		Validators.required,
-		Validators.pattern(/[А-я]/)
+		Validators.pattern(/^[a-zа-яё\s]+$/iu)
 		]
 		],
 		email: ['', [
-		Validators.required, Validators.email
+		Validators.required, Validators.pattern(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
 		],
 		],
 		phone: ['', [
@@ -58,6 +60,11 @@ export class UserFormComponent implements OnInit {
 		}
 		// Todo: Обработка данных формы
 		// tslint:disable
-		console.log(this.adultCount, this.period)
+		console.log(`Кол-во взрослых: ${this.adultCount},
+		кол-во детей сред. возраста: ${this.middleChildCount},
+		кол-во детей младш.возраста: ${this.littleChildCount}
+		тариф: ${this.period}, цена: ${this.titlePrice},
+		Дата ${this.date}
+		 `)
 	}
 }

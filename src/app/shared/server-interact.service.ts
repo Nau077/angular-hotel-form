@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -44,3 +43,26 @@ export class HotelData {
 			};
 		}
 	}
+
+
+// Здесь в случае реального взаимодействия с сервером, необходимо
+// осуществлять все требуемые операции с api в таком ключе:
+
+// export interface Data {
+//   id: number
+//   title: string
+//   completed: boolean
+//   date?: any
+// }
+
+// @Injectable({providedIn: 'root'})
+// export class DataService {
+//   public data: Data[] = []
+
+//   constructor(private http: HttpClient) {}
+
+//   fetchData(): Observable<Data[]> {
+//     return this.http.get<Data[]>('https://jsonplaceholder.typicode.com/todos?_limit=30')
+//       .pipe(tap(data => this.data = data))
+//   }
+// }

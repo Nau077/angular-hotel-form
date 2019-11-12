@@ -1,6 +1,6 @@
 <div class="container-fluid col-8">
 <h2 class="text-center mt-2 mb-4">Заполните форму</h2>
-  <form [formGroup]="hotelCalcForm" (submit)="calculate()">
+  <form class="mb-4" [formGroup]="hotelCalcForm" (submit)="calculate()">
     <div class="form-group">
       <label for="InputNumberAdult">Количество взрослых</label>
       <input type="number" class="form-control" id="InputNumberAdult" formControlName="adultsCount" required />
@@ -30,19 +30,19 @@
         </sat-datepicker>
         <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
       </mat-form-field>
+	  <p>При повторном изменении даты не забудьте ещё раз нажать кнопку "рассчитать"</p>
     </section>
     <button type="submit" class="btn btn-primary">Рассчитать</button>
     <br/><br/>
-    <p class="error" *ngIf="!isCalculated && isChildChecked">{{titlePrice}}</p>
-    <p *ngIf="isCalculated">Итоговая сумма: {{titlePrice}} рублей</p>
+    <p [@slideInLeft] class="error" *ngIf="!isCalculated && isChildChecked" [@slideInLeft]>{{titlePrice}}</p>
+    <p *ngIf="isCalculated" [@slideInLeft]>Итоговая сумма: {{titlePrice}} рублей</p>
     <div class="error">
       <p *ngIf="isControlInvalid('adultsCount')"> Заполните положительное целое число <p>
-          <p *ngIf="isControlInvalid('childMiddleAgeCount')">Заполните положительное целое число<p>
-              <p *ngIf="isControlInvalid('childSmallAgeCount')">Заполните положительное целое число<p>
-                  <p *ngIf="!isChildChecked">На одного взрослого не более трёх детей до 5 лет!<p>
+          <p *ngIf="isControlInvalid('childMiddleAgeCount')" [@slideInLeft]>Заполните положительное целое число<p>
+              <p *ngIf="isControlInvalid('childSmallAgeCount')" [@slideInLeft]>Заполните положительное целое число<p>
+                  <p *ngIf="!isChildChecked" [@slideInLeft]>На одного взрослого не более трёх детей до 5 лет!<p>
     </div>
   </form>
-  <br /><br />
-  <app-user-form *ngIf="isCalculated" [adultCount]="adultCount" [middleChildCount]="middleChildCount"
-    [littleChildCount]="littleChildCount" [period]=" period"></app-user-form>
+  <app-user-form [@slideInLeft] *ngIf="isCalculated" [adultCount]="adultCount" [middleChildCount]="middleChildCount"
+    [littleChildCount]="littleChildCount" [date]="date" [period]="period" [titlePrice]="titlePrice"></app-user-form>
 </div>

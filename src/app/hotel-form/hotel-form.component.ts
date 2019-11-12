@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl  } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { trigger, transition, animate, style } from '@angular/animations';
 import {Form, FormService} from '../shared/form.service';
 import { HotelData,  selectedIntervals } from '../shared/server-interact.service';
 import * as moment from 'moment';
@@ -7,7 +8,18 @@ import * as moment from 'moment';
 @Component({
 	selector: 'app-hotel-form',
 	templateUrl: './hotel-form.component.html',
-	styleUrls: ['./hotel-form.component.scss']
+	styleUrls: ['./hotel-form.component.scss'],
+	animations: [
+		trigger('slideInLeft', [
+		transition(':enter', [
+			style({transform: 'translateX(-100%)'}),
+			animate('200ms ease-in', style({transform: 'translateX(0%)'}))
+		]),
+		transition(':leave', [
+			animate('200ms ease-in', style({transform: 'translateX(-100%)'}))
+		])
+		])
+	]
 })
 export class HotelFormComponent implements OnInit {
 	hotelCalcForm: FormGroup;
@@ -19,6 +31,7 @@ export class HotelFormComponent implements OnInit {
 	littleChildCount = '';
 	isChildChecked = true;
 	period = '';
+	date = '';
 
 	constructor(private fb: FormBuilder, private formService: FormService) {
 	}
@@ -71,7 +84,7 @@ export class HotelFormComponent implements OnInit {
 
 	 const timeBegin = moment(this.hotelCalcForm.value.date.begin).format('MM-DD-YYYY');
 	 const timeEnd = moment(this.hotelCalcForm.value.date.end).format('MM-DD-YYYY');
-
+	 this.date = timeBegin + ':' + timeEnd;
 	 const form: Form = {
 		period: this.hotelCalcForm.value.selectedPeriod,
 		adultsCount: this.hotelCalcForm.value.adultsCount,
